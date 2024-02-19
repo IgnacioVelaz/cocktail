@@ -21,6 +21,7 @@ module.exports = {
     "prefer-const": ["error", { destructuring: "all" }],
     "prefer-arrow-callback": ["error", { allowNamedFunctions: false }],
     "max-len": ["error", 140],
+    "import/prefer-default-export": "off",
     quotes: [2, "double", { avoidEscape: true }],
     "react-refresh/only-export-components": [
       "warn",
