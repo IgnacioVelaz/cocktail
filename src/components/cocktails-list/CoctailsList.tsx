@@ -1,12 +1,9 @@
 import { useEffect, useState } from "react";
 import { CircularProgress } from "@mui/material";
-import axios from "axios";
 import useSearchParams from "../../hooks/useSearchParams";
-import { getCocktailEndpoints, getCocktailIds, getQueryFromArg } from "../../adapters";
+import { getQueryFromArg } from "../../adapters";
 import { useAxiosFetch } from "../../hooks";
-import { getCocktailsDetails } from "../../adapters/cocktailDetails.adapter";
-import { sortByAlcohol } from "../../utilities/sortByAlcohol";
-import { filterByMaxIngredients } from "../../utilities";
+import { getCocktailsData } from "../../utilities";
 import { CocktailDetails, CocktailsByIngredientData } from "../../models";
 
 type HistoryPath = {
@@ -34,19 +31,13 @@ const CoctailsList = () => {
   const { data, isError, isLoading } = useAxiosFetch<CocktailsByIngredientData>(URL);
 
   useEffect(() => {
-    const getCocktailsData = async () => {
-      if (!data) return;
-      const firstTenCocktails = data.drinks.slice(0, 10);
-      const endpoints = getCocktailEndpoints(getCocktailIds(firstTenCocktails));
-      const cocktailsData = await axios.all(endpoints.map((endpoint) => axios.get(endpoint)));
+    if (!data) return;
+    const setCocktailsData = async () => {
+      const cocktailsData = await getCocktailsData(data);
       if (!cocktailsData) return;
-      const filteredCoctails = filterByMaxIngredients(cocktailsData, 6);
-      const cocktailsDetails = getCocktailsDetails(filteredCoctails);
-      const sortedCocktailsDetails = sortByAlcohol(cocktailsDetails);
-      const firstSixCocktails = sortedCocktailsDetails.slice(0, 6);
-      setCocktails(firstSixCocktails);
+      setCocktails(cocktailsData);
     };
-    getCocktailsData();
+    setCocktailsData();
   }, [data]);
 
   if (isLoading) return <CircularProgress />;
