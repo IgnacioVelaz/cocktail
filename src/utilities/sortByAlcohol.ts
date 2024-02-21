@@ -1,3 +1,5 @@
+import { CocktailDetails } from "../models";
+
 export const sortByAlcohol = (array: CocktailDetails[]) => {
   return array.sort((a, b) => {
     if (!a.isAlcoholic && b.isAlcoholic) {

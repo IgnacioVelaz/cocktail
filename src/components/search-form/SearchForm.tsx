@@ -23,7 +23,7 @@ const SearchForm = () => {
     setInputValue(searchParams.get("q") || "");
   }, [searchParams]);
 
-  const onChange = (event: SyntheticEvent<Element, Event>, newValue: string | null) => {
+  const onChange = (_event: SyntheticEvent<Element, Event>, newValue: string | null) => {
     if (newValue) {
       setInputValue(newValue);
       const newSearchParams = new URLSearchParams(searchParams);
