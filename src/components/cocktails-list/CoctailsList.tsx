@@ -7,6 +7,8 @@ import { getCocktailsData } from "../../utilities";
 import { CocktailDetails, CocktailsByIngredientData } from "../../models";
 import CocktailItem from "../cocktail-item/CocktailItem";
 import { InstructionsModal } from "../instructions-modal";
+import { ShareURLButton } from "../share-url-button";
+import { EmptyIngredient } from "../empty-ingredient";
 
 type HistoryPath = {
   path: string;
@@ -18,6 +20,7 @@ const CoctailsList = () => {
   const [cocktails, setCocktails] = useState<CocktailDetails[] | never[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCocktail, setSelectedCocktail] = useState<CocktailDetails | null>(null);
+  const [isLoadingCocktails, setIsLoadingCocktails] = useState(true);
 
   /* eslint-disable no-restricted-globals */
   useEffect(() => {
@@ -42,20 +45,30 @@ const CoctailsList = () => {
 
   useEffect(() => {
     if (!data) return;
+    setIsLoadingCocktails(true);
     const setCocktailsData = async () => {
       const cocktailsData = await getCocktailsData(data);
       if (!cocktailsData) return;
       setCocktails(cocktailsData);
     };
+    setIsLoadingCocktails(false);
     setCocktailsData();
   }, [data]);
 
-  if (isLoading) return <CircularProgress />;
+  if (isLoading || isLoadingCocktails) return <CircularProgress />;
   if (isError) return null;
+
+  if (cocktails.length === 0)
+    return (
+      <EmptyIngredient
+        title="Ups, there's nothing here"
+        text="Looks like there are no recipes for this ingredient. Please try another one. "
+      />
+    );
 
   return (
     <>
-      <Grid container>
+      <Grid container sx={{ marginTop: "1.5em" }}>
         {cocktails.map((cocktail) => (
           <Grid item key={cocktail.name} xs={12} sm={6} md={4} sx={{ padding: 1 }}>
             <CocktailItem data={cocktail} openModal={openModal} />
@@ -63,6 +76,7 @@ const CoctailsList = () => {
         ))}
       </Grid>
       <InstructionsModal isOpen={isModalOpen} handleClose={closeModal} cocktail={selectedCocktail} />
+      <ShareURLButton />
     </>
   );
 };

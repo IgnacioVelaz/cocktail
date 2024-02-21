@@ -1,9 +1,10 @@
-import { Button, Card, Typography, styled } from "@mui/material";
+import { Box, Button, Card, ListItemText, Typography, styled } from "@mui/material";
 
 export const StyledCocktailItem = styled(Card)(() => ({
   height: "100%",
   width: "100%",
   paddingInline: "1em",
+  paddingBottom: "1em",
   backgroundColor: "var(--clr-primary)",
   color: "var(--clr-text-secondary)",
   display: "flex",
@@ -23,14 +24,20 @@ export const BasicHeading = styled(Typography)(() => ({
   textTransform: "uppercase",
 }));
 
-export const CocktailNameBox = styled(Typography)(() => ({
+export const CocktailNameBox = styled(Box)(() => ({
   minHeight: "80px",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
+  marginBottom: "1em",
 }));
 
 export const InstructionsButton = styled(Button)(() => ({
   marginInline: "auto",
   marginTop: "auto",
+}));
+
+export const ClickableListItem = styled(ListItemText)(() => ({
+  textDecoration: "underline",
+  cursor: "pointer",
 }));

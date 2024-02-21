@@ -1,7 +1,9 @@
-import { Box, CardActions, CardContent, Grid, List, ListItem, ListItemText, Typography } from "@mui/material";
+import { Box, CardActions, CardContent, Grid, List, ListItem, Typography } from "@mui/material";
 import { FC } from "react";
+import { nanoid } from "nanoid";
 import { CocktailDetails } from "../../models";
-import { BasicHeading, CocktailName, CocktailNameBox, InstructionsButton, StyledCocktailItem } from "./CocktailItem.styles";
+import { BasicHeading, ClickableListItem, CocktailName, CocktailNameBox, InstructionsButton, StyledCocktailItem } from "./styled";
+import useSearchParams from "../../hooks/useSearchParams";
 
 type Props = {
   data: CocktailDetails;
@@ -10,11 +12,18 @@ type Props = {
 
 const CocktailItem: FC<Props> = ({ data, openModal }) => {
   const { name, ingredients, isAlcoholic, thumbnailURL } = data;
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const setNewIngredient = (ingredient: string) => {
+    const newSearchParams = new URLSearchParams(searchParams);
+    newSearchParams.set("q", ingredient);
+    setSearchParams(newSearchParams);
+  };
 
   const isAlcoholicText = isAlcoholic ? "Contains alcohol" : "0% Alcohol";
 
   return (
-    <StyledCocktailItem key={name}>
+    <StyledCocktailItem key={nanoid()}>
       <CardContent>
         <CocktailNameBox>
           <CocktailName variant="h2">{name}</CocktailName>
@@ -25,22 +34,24 @@ const CocktailItem: FC<Props> = ({ data, openModal }) => {
               <BasicHeading variant="h3">Ingredients</BasicHeading>
               <List dense>
                 {ingredients.map((ingredient) => (
-                  <ListItem>
-                    <ListItemText>{ingredient}</ListItemText>
+                  <ListItem key={nanoid()}>
+                    <ClickableListItem role="button" onClick={() => setNewIngredient(ingredient)}>
+                      {ingredient}
+                    </ClickableListItem>
                   </ListItem>
                 ))}
               </List>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={6} sm={12} md={6} sx={{ textAlign: "center" }}>
               <Box component="img" alt={name} src={thumbnailURL} />
-              <Typography>{isAlcoholicText}</Typography>
+              <Typography color="secondary">{isAlcoholicText}</Typography>
             </Grid>
           </Grid>
         </Box>
       </CardContent>
       <CardActions>
         <InstructionsButton variant="contained" size="small" onClick={() => openModal(data)}>
-          Preparation Instructions
+          Read Instructions
         </InstructionsButton>
       </CardActions>
     </StyledCocktailItem>

@@ -30,6 +30,13 @@ const theme = createTheme({
             backgroundColor: "#f0f1f6",
           },
         },
+        text: {
+          color: "inherit",
+          textTransform: "none",
+          padding: "0",
+          textAlign: "left",
+          width: "fit-content",
+        },
       },
     },
   },

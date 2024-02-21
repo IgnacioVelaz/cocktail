@@ -10,7 +10,6 @@ type Props = {
 
 const InstructionsModal: FC<Props> = ({ isOpen, handleClose, cocktail }) => {
   if (!cocktail) {
-    handleClose();
     return null;
   }
   const { name, instructions } = cocktail;
