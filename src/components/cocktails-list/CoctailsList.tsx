@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { CircularProgress } from "@mui/material";
+import { CircularProgress, Grid } from "@mui/material";
 import useSearchParams from "../../hooks/useSearchParams";
 import { getQueryFromArg } from "../../adapters";
 import { useAxiosFetch } from "../../hooks";
 import { getCocktailsData } from "../../utilities";
 import { CocktailDetails, CocktailsByIngredientData } from "../../models";
+import CocktailItem from "../cocktail-item/CocktailItem";
 
 type HistoryPath = {
   path: string;
@@ -43,7 +44,15 @@ const CoctailsList = () => {
   if (isLoading) return <CircularProgress />;
   if (isError) return null;
 
-  return <div>CoctailsList: {JSON.stringify(cocktails)}</div>;
+  return (
+    <Grid container>
+      {cocktails.map((cocktail) => (
+        <Grid item key={cocktail.name} xs={12} sm={6} md={4} sx={{ padding: 1 }}>
+          <CocktailItem data={cocktail} />
+        </Grid>
+      ))}
+    </Grid>
+  );
 };
 
 export default CoctailsList;
