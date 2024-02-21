@@ -59,7 +59,7 @@ const CoctailsList = () => {
 
   if (isError) return null;
 
-  if (cocktails.length === 0)
+  if (cocktails.length === 0 && search)
     return (
       <EmptyIngredient
         title="Ups, there's nothing here"
