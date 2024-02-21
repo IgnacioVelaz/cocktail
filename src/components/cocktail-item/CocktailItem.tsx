@@ -5,9 +5,10 @@ import { BasicHeading, CocktailName, CocktailNameBox, InstructionsButton, Styled
 
 type Props = {
   data: CocktailDetails;
+  openModal: (cocktail: CocktailDetails) => void;
 };
 
-const CocktailItem: FC<Props> = ({ data }) => {
+const CocktailItem: FC<Props> = ({ data, openModal }) => {
   const { name, ingredients, isAlcoholic, thumbnailURL } = data;
 
   const isAlcoholicText = isAlcoholic ? "Contains alcohol" : "0% Alcohol";
@@ -18,10 +19,9 @@ const CocktailItem: FC<Props> = ({ data }) => {
         <CocktailNameBox>
           <CocktailName variant="h2">{name}</CocktailName>
         </CocktailNameBox>
-        {/* <img src={thumbnailURL} alt={name} /> */}
         <Box>
           <Grid container>
-            <Grid item md={6}>
+            <Grid item xs={6}>
               <BasicHeading variant="h3">Ingredients</BasicHeading>
               <List dense>
                 {ingredients.map((ingredient) => (
@@ -31,7 +31,7 @@ const CocktailItem: FC<Props> = ({ data }) => {
                 ))}
               </List>
             </Grid>
-            <Grid item md={6}>
+            <Grid item xs={6}>
               <Box component="img" alt={name} src={thumbnailURL} />
               <Typography>{isAlcoholicText}</Typography>
             </Grid>
@@ -39,7 +39,7 @@ const CocktailItem: FC<Props> = ({ data }) => {
         </Box>
       </CardContent>
       <CardActions>
-        <InstructionsButton variant="contained" size="small">
+        <InstructionsButton variant="contained" size="small" onClick={() => openModal(data)}>
           Preparation Instructions
         </InstructionsButton>
       </CardActions>
