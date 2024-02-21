@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
 import { CircularProgress, Grid } from "@mui/material";
 import useSearchParams from "../../hooks/useSearchParams";
 import { getQueryFromArg } from "../../adapters";
@@ -14,7 +14,11 @@ type HistoryPath = {
   path: string;
 };
 
-const CoctailsList = () => {
+type Props = {
+  setInputValue: Dispatch<SetStateAction<string>>;
+};
+
+const CoctailsList: FC<Props> = ({ setInputValue }) => {
   const [searchParams] = useSearchParams();
   const [search, setSearch] = useState(searchParams.get("q"));
   const [cocktails, setCocktails] = useState<CocktailDetails[] | never[]>([]);
@@ -72,7 +76,7 @@ const CoctailsList = () => {
       <Grid container sx={{ marginTop: "1.5em" }}>
         {cocktails.map((cocktail) => (
           <Grid item key={cocktail.name} xs={12} sm={6} md={4} sx={{ padding: 1 }}>
-            <CocktailItem data={cocktail} openModal={openModal} />
+            <CocktailItem data={cocktail} openModal={openModal} setInputValue={setInputValue} />
           </Grid>
         ))}
       </Grid>

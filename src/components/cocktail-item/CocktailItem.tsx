@@ -1,5 +1,5 @@
 import { Box, CardActions, CardContent, Grid, List, ListItem, Typography } from "@mui/material";
-import { FC } from "react";
+import { Dispatch, FC, SetStateAction } from "react";
 import { nanoid } from "nanoid";
 import { CocktailDetails } from "../../models";
 import { BasicHeading, ClickableListItem, CocktailName, CocktailNameBox, InstructionsButton, StyledCocktailItem } from "./styled";
@@ -8,9 +8,10 @@ import useSearchParams from "../../hooks/useSearchParams";
 type Props = {
   data: CocktailDetails;
   openModal: (cocktail: CocktailDetails) => void;
+  setInputValue: Dispatch<SetStateAction<string>>;
 };
 
-const CocktailItem: FC<Props> = ({ data, openModal }) => {
+const CocktailItem: FC<Props> = ({ data, openModal, setInputValue }) => {
   const { name, ingredients, isAlcoholic, thumbnailURL } = data;
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -18,6 +19,7 @@ const CocktailItem: FC<Props> = ({ data, openModal }) => {
     const newSearchParams = new URLSearchParams(searchParams);
     newSearchParams.set("q", ingredient);
     setSearchParams(newSearchParams);
+    setInputValue(ingredient);
   };
 
   const isAlcoholicText = isAlcoholic ? "Contains alcohol" : "0% Alcohol";

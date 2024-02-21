@@ -1,4 +1,4 @@
-import { SyntheticEvent, useEffect, useMemo, useState } from "react";
+import { Dispatch, FC, SetStateAction, SyntheticEvent, useEffect, useMemo } from "react";
 import { CircularProgress } from "@mui/material";
 import { SearchInput } from "../search-input";
 import { dataToIngredients } from "../../adapters";
@@ -12,10 +12,14 @@ type AxiosFetchReturn = {
   isLoading: boolean;
 };
 
-const SearchForm = () => {
+type Props = {
+  inputValue: string;
+  setInputValue: Dispatch<SetStateAction<string>>;
+};
+
+const SearchForm: FC<Props> = ({ inputValue, setInputValue }) => {
   const { data, isError, isLoading }: AxiosFetchReturn = useAxiosFetch("https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list");
   const [searchParams, setSearchParams] = useSearchParams();
-  const [inputValue, setInputValue] = useState<string>("");
 
   const ingredients = useMemo(() => (data ? dataToIngredients(data) : []), [data]);
 
