@@ -35,7 +35,7 @@ const CocktailItem: FC<Props> = ({ data, openModal }) => {
               <List dense>
                 {ingredients.map((ingredient) => (
                   <ListItem key={nanoid()}>
-                    <ClickableListItem role="button" onClick={() => setNewIngredient(ingredient)}>
+                    <ClickableListItem role="button" onClick={() => setNewIngredient(ingredient!)}>
                       {ingredient}
                     </ClickableListItem>
                   </ListItem>

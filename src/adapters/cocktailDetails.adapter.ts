@@ -8,7 +8,7 @@ export const getCocktailsDetails = (cocktailsData: CocktailDetailResponse[]) => 
     const ingredients = Object.keys(cocktailData)
       .filter((key) => key.includes("strIngredient"))
       .map((key) => cocktailData[key])
-      .filter((ingredient) => !!ingredient);
+      .filter((ingredient): ingredient is string => !!ingredient) as string[];
 
     const cocktailDetails = {
       name: strDrink,
