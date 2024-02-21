@@ -1,30 +1,61 @@
-# React + TypeScript + Vite
+# CocktailFinder 🔍
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+CocktailFinder is a user interface for searching ingredients for Cocktails and find what you can mix with them.
 
-Currently, two official plugins are available:
+## Project Overview 👁
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+CocktailFinder is a coding challenge project designed to provide a simple and intuitive interface for interacting with thecocktaildb. Users can search for Cocktail ingredients and get some ideas on what to make with them.
 
-## Expanding the ESLint configuration
+## Key Features 🔑
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **Ingredients Search:** Search for cocktails ingredients with 100 suggestions.
+- **Recipes Listing:** View a list of cocktails you can make with the currently selected ingredient.
 
-- Configure the top-level `parserOptions` property like this:
+## Technology Stack 🛠
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+CocktailFinder is built using the following technologies:
+
+- TypeScript
+- React
+- Axios
+- Material UI
+
+## Getting Started Locally 💻
+
+To install and run the CocktailFinder project locally, follow these steps:
+
+1. **Prerequisites:**
+
+- Ensure you have Node.js installed on your computer.
+
+2. **Clone the repository:**
+   ```sh
+   git clone https://github.com/IgnacioVelaz/cocktail.git
+   ```
+3. **Navigate to the project directory:**
+
+```sh
+ cd cocktail
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+4. **Install dependencies:**
+
+```sh
+ pnpm i
+```
+
+5. **Run the app locally:**
+
+```sh
+ pnpm run dev
+```
+
+6. **Open CocktailFinder in your browser:**
+
+- Visit http://localhost:5173/ to access the CocktailFinder app.
+
+## Let's grow together! 🌱
+
+CocktailFinder is a project developed as a coding challenge with a learning mindset, and your feedback is highly appreciated.
+
+Feel free to provide feedback by opening an issue on the GitHub repository or just reach out. Additionally, if you find any code snippets useful, you are welcome to use them in your own projects.
