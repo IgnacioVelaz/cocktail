@@ -55,7 +55,8 @@ const CoctailsList = () => {
     setCocktailsData();
   }, [data]);
 
-  if (isLoading || isLoadingCocktails) return <CircularProgress />;
+  if (isLoading || (isLoadingCocktails && search)) return <CircularProgress />;
+
   if (isError) return null;
 
   if (cocktails.length === 0)
